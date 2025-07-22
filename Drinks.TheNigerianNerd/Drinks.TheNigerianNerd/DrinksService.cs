@@ -1,12 +1,7 @@
 ﻿using Drinks.TheNigerianNerd.Models;
 using Newtonsoft.Json;
 using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using static Drinks.TheNigerianNerd.Models.DrinkDetailObject;
 
@@ -38,7 +33,7 @@ namespace Drinks.TheNigerianNerd
         {
             var client = new RestClient("http://www.thecocktaildb.com/api/json/v1/1");
             var request = new RestRequest($"filter.php?c={HttpUtility.UrlEncode(category)}");
-            
+
             var response = client.ExecuteAsync(request);
 
             List<Drink> drinks = new();
