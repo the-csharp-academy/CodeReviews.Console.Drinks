@@ -1,2 +1,11 @@
-﻿Console.WriteLine("Hello, World!");
-Console.WriteLine("This is a new project");
+﻿
+namespace DrinksInformation.JJHH17
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            UserInput userInput = new UserInput();
+        }
+    }
+}
