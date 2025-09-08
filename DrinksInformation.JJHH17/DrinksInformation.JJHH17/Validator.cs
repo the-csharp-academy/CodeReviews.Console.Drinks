@@ -6,7 +6,22 @@ using System.Threading.Tasks;
 
 namespace DrinksInformation.JJHH17
 {
-    internal class Class1
+    internal class Validator
     {
+
+        internal static bool IsStringValid(string stringInput)
+        {
+            if (string.IsNullOrEmpty(stringInput))
+            {
+                return false;
+            }
+
+            foreach(char c in stringInput)
+            {
+                if (!char.IsLetter(c) && c != '/' && c != ' ')
+                    return false;
+            }
+            return true;
+        }
     }
 }
