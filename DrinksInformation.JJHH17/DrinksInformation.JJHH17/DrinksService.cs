@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using RestSharp;
 using Newtonsoft.Json;
+using ConsoleTableExt;
+using DrinksInformation.JJHH17.Models;
 
 namespace DrinksInformation.JJHH17
 {
@@ -21,7 +23,7 @@ namespace DrinksInformation.JJHH17
                 string rawResponse = response.Result.Content;
                 var serialize = JsonConvert.DeserializeObject<Categories>(rawResponse);
 
-                List<Category> categories = serialize.CategoriesList;
+                List<Category> returnedList = serialize.CategoriesList;
 
                 TableVisualisationEngine.ShowTable(returnedList, "Categories Menu");
             }
