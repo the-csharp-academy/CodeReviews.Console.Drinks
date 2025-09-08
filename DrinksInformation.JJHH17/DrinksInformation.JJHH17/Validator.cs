@@ -23,5 +23,19 @@ namespace DrinksInformation.JJHH17
             }
             return true;
         }
+
+        public static bool IsIdValid(string idInput)
+        {
+            if (string.IsNullOrEmpty(idInput))
+            {
+                return false;
+            }
+            foreach (char c in idInput)
+            {
+                if (!char.IsDigit(c))
+                    return false;
+            }
+            return true;
+        }
     }
 }
