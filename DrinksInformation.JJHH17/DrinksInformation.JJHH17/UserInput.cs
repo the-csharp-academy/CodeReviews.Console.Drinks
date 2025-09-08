@@ -12,7 +12,7 @@ namespace DrinksInformation.JJHH17
 
         internal void GetCategoriesInput()
         {
-            drinksService.GetCategories();
+            var categories = drinksService.GetCategories();
 
             Console.WriteLine("Choose Category: ");
             string category = Console.ReadLine();
@@ -23,12 +23,18 @@ namespace DrinksInformation.JJHH17
                 category = Console.ReadLine();
             }
 
+            if (!categories.Any(x => x.strCategory == category))
+            {
+                Console.WriteLine("\nCategory does not exist, please try again: ");
+                GetCategoriesInput();
+            }
+
             GetDrinksInput(category);
         }
 
         private void GetDrinksInput(string category)
         {
-            drinksService.GetDrinksByCategory(category);
+            var drinks = drinksService.GetDrinksByCategory(category);
 
             Console.WriteLine("Choose a drink or go back to category menu by typing 0:");
             string drink = Console.ReadLine();
@@ -41,7 +47,17 @@ namespace DrinksInformation.JJHH17
                 drink = Console.ReadLine();
             }
 
+            if (!drinks.Any(x => x.idDrink == drink))
+            {
+                Console.WriteLine("\nDrink does not exist, please try again: ");
+                GetDrinksInput(category);
+            }
+
             drinksService.GetDrink(drink);
+
+            Console.WriteLine("Press any key to go back to category menu...");
+            Console.ReadKey();
+            if (!Console.KeyAvailable) GetCategoriesInput();
         }
     }
 }
