@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using ConsoleTableExt;
 using DrinksInformation.JJHH17.Models;
 using System.Web;
+using System.Reflection;
 
 namespace DrinksInformation.JJHH17
 {
@@ -38,7 +39,7 @@ namespace DrinksInformation.JJHH17
 
             if (response.Result.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                string rawResponse = response.Content;
+                string rawResponse = response.Result.Content;
                 var serialize = JsonConvert.DeserializeObject<DrinkDetailObject>(rawResponse);
                 List<DrinkDetail> returnedList = serialize.DrinkDetailList;
                 DrinkDetail drinkDetail = returnedList[0];
@@ -61,6 +62,8 @@ namespace DrinksInformation.JJHH17
                         });
                     }
                 }
+
+                TableVisualisationEngine.ShowTable(prepList, drinkDetail.strDrink);
             }
         }
 
