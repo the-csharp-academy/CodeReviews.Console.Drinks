@@ -40,6 +40,8 @@ namespace DrinksInformation.JJHH17
                 Console.WriteLine("\nInvalid input, please try again: ");
                 drink = Console.ReadLine();
             }
+
+            drinksService.GetDrink(drink);
         }
     }
 }
