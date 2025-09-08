@@ -28,7 +28,7 @@ namespace DrinksInformation.JJHH17
 
         private void GetDrinksInput(string category)
         {
-            throw new NotImplementedException();
+            drinksService.GetDrinksByCategory(category);
         }
     }
 }
