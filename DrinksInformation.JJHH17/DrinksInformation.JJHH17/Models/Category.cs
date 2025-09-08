@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace DrinksInformation.JJHH17.Models
 {
-    internal class Category
+    public class Category
     {
         public string strCategory { get; set; }
     }
