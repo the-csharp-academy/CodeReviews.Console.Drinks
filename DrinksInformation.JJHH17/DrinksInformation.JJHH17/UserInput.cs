@@ -13,6 +13,15 @@ namespace DrinksInformation.JJHH17
         internal void GetCategoriesInput()
         {
             drinksService.GetCategories();
+
+            Console.WriteLine("Choose Category: ");
+            string category = Console.ReadLine();
+
+            while (!Validator.IsStringValid(category))
+            {
+                Console.WriteLine("\nInvalid input, please try again: ");
+                category = Console.ReadLine();
+            }
         }
     }
 }
