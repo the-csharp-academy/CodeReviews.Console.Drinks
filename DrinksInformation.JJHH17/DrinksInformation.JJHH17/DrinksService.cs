@@ -14,21 +14,26 @@ namespace DrinksInformation.JJHH17
 {
     internal class DrinksService
     {
-        public void GetCategories()
+        public List<Category> GetCategories()
         {
             var client = new RestClient("https://www.thecocktaildb.com/api/json/v1/1"); 
             var request = new RestRequest("list.php?c=list");
             var response = client.ExecuteAsync(request);
+            bool running = true;
+
+            List<Category> categories = new();
 
             if (response.Result.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 string rawResponse = response.Result.Content;
                 var serialize = JsonConvert.DeserializeObject<Categories>(rawResponse);
 
-                List<Category> returnedList = serialize.CategoriesList;
-
-                TableVisualisationEngine.ShowTable(returnedList, "Categories Menu");
+                categories = serialize.CategoriesList;
+                TableVisualisationEngine.ShowTable(categories, "Categories Menu");
+                return categories;
             }
+
+            return categories;
         }
 
         internal void GetDrink(string drink)
@@ -67,11 +72,13 @@ namespace DrinksInformation.JJHH17
             }
         }
 
-        internal void GetDrinksByCategory(string category)
+        internal List<Drink> GetDrinksByCategory(string category)
         {
             var client = new RestClient("https://www.thecocktaildb.com/api/json/v1/1"); 
             var request = new RestRequest($"filter.php?c={HttpUtility.UrlEncode(category)}");
             var response = client.ExecuteAsync(request);
+
+            List<Drink> drinks = new();
 
             if (response.Result.StatusCode == System.Net.HttpStatusCode.OK)
             {
@@ -79,8 +86,10 @@ namespace DrinksInformation.JJHH17
                 var serialize = JsonConvert.DeserializeObject<Drinks>(rawResponse);
                 List<Drink> returnedList = serialize.DrinksList;
                 TableVisualisationEngine.ShowTable(returnedList, "Drinks Menu");
+                return drinks;
             }
 
+            return drinks;
         }
     }
 }
