@@ -12,16 +12,18 @@ namespace DrinksInformation.JJHH17
     {
         public static void ShowTable<T>(List<T> tableData, [AllowNull] string tableName) where T : class
         {
-            if (tableName = null)
+            Console.Clear();
+
+            if (tableName == null)
                 tableName = "";
 
             Console.WriteLine("\n\n");
 
             ConsoleTableBuilder
                 .From(tableData)
-                .WithTitle(tableName, ConsoleColor.Yellow, ConsoleColor.DarkBlue)
-                .WithFormat(ConsoleTableBuilderFormat.Alternative)
+                .WithTitle(tableName)
                 .ExportAndWriteLine();
+            Console.WriteLine("\n\n");
         }
     }
 }
