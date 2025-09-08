@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace DrinksInformation.JJHH17.Models
 {
-    internal class DrinkDetail
+    internal class DrinkDetailObject
     {
         [JsonProperty("drinks")]
         public List<DrinkDetail> DrinkDetailList { get; set; }
