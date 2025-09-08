@@ -22,6 +22,13 @@ namespace DrinksInformation.JJHH17
                 Console.WriteLine("\nInvalid input, please try again: ");
                 category = Console.ReadLine();
             }
+
+            GetDrinksInput(category);
+        }
+
+        private void GetDrinksInput(string category)
+        {
+            throw new NotImplementedException();
         }
     }
 }
