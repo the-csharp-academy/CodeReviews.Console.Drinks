@@ -30,6 +30,23 @@ namespace DrinksInformation.JJHH17
             }
         }
 
+        internal void GetDrink(string drink)
+        {
+            var client = new RestClient("https://www.thecocktaildb.com/api/json/v1/1");
+            var request = new RestRequest($"lookup.php?i={HttpUtility.UrlEncode(drink)}");
+            var response = client.ExecuteAsync(request);
+
+            if (response.Result.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                string rawResponse = response.Content;
+                var serialize = JsonConvert.DeserializeObject<DrinkDetailObject>(rawResponse);
+                List<DrinkDetail> returnedList = serialize.DrinkDetailList;
+                DrinkDetail drinkDetail = returnedList[0];
+                List<object> prepList = new();
+                string formattedName = "";
+            }
+        }
+
         internal void GetDrinksByCategory(string category)
         {
             var client = new RestClient("https://www.thecocktaildb.com/api/json/v1/1"); 
