@@ -7,7 +7,7 @@ using RestSharp;
 using Newtonsoft.Json;
 using ConsoleTableExt;
 using DrinksInformation.JJHH17.Models;
-
+using System.Web;
 
 namespace DrinksInformation.JJHH17
 {
@@ -33,14 +33,14 @@ namespace DrinksInformation.JJHH17
         internal void GetDrinksByCategory(string category)
         {
             var client = new RestClient("https://www.thecocktaildb.com/api/json/v1/1"); 
-            var request = new RestRequest($"filter.php?c={category}");
+            var request = new RestRequest($"filter.php?c={HttpUtility.UrlEncode(category)}");
             var response = client.ExecuteAsync(request);
 
             if (response.Result.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 string rawResponse = response.Result.Content;
                 var serialize = JsonConvert.DeserializeObject<Drinks>(rawResponse);
-                List<Drink> returnedList = serialize.Drinks;
+                List<Drink> returnedList = serialize.DrinksList;
                 TableVisualisationEngine.ShowTable(returnedList, "Drinks Menu");
             }
 
