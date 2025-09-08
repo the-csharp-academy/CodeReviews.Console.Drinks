@@ -3,10 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ConsoleTableExt;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DrinksInformation.JJHH17
 {
-    internal class Class1
+    internal class TableVisualisationEngine
     {
+        public static void ShowTable<T>(List<T> tableData, [AllowNull] string tableName) where T : class
+        {
+            if (tableName = null)
+                tableName = "";
+
+            Console.WriteLine("\n\n");
+
+            ConsoleTableBuilder
+                .From(tableData)
+                .WithTitle(tableName, ConsoleColor.Yellow, ConsoleColor.DarkBlue)
+                .WithFormat(ConsoleTableBuilderFormat.Alternative)
+                .ExportAndWriteLine();
+        }
     }
 }
