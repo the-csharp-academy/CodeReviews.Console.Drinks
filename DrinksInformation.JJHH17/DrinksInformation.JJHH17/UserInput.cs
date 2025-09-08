@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace DrinksInformation.JJHH17
 {
-    internal class Class1
+    internal class UserInput
     {
+        DrinksService drinksService = new DrinksService();
+
+        internal void GetCategoriesInput()
+        {
+            drinksService.GetCategories();
+        }
     }
 }
