@@ -5,7 +5,8 @@ namespace DrinksInformation.JJHH17
     {
         static void Main(string[] args)
         {
-            UserInput userInput = new UserInput();
+            UserInput userInput = new();
+            userInput.GetCategoriesInput();
         }
     }
 }
