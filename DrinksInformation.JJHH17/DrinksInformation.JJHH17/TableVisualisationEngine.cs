@@ -22,7 +22,8 @@ namespace DrinksInformation.JJHH17
             ConsoleTableBuilder
                 .From(tableData)
                 .WithTitle(tableName)
-                .ExportAndWriteLine();
+                .WithFormat(ConsoleTableBuilderFormat.Alternative)
+                .ExportAndWriteLine(TableAligntment.Center);
             Console.WriteLine("\n\n");
         }
     }
