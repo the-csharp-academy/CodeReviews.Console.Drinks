@@ -19,7 +19,6 @@ namespace DrinksInformation.JJHH17
             var client = new RestClient("https://www.thecocktaildb.com/api/json/v1/1"); 
             var request = new RestRequest("list.php?c=list");
             var response = client.ExecuteAsync(request);
-            bool running = true;
 
             List<Category> categories = new();
 
@@ -38,8 +37,8 @@ namespace DrinksInformation.JJHH17
 
         internal void GetDrink(string drink)
         {
-            var client = new RestClient("https://www.thecocktaildb.com/api/json/v1/1");
-            var request = new RestRequest($"lookup.php?i={HttpUtility.UrlEncode(drink)}");
+            var client = new RestClient("https://www.thecocktaildb.com/api/json/v1/1/");
+            var request = new RestRequest($"lookup.php?i={drink}");
             var response = client.ExecuteAsync(request);
 
             if (response.Result.StatusCode == System.Net.HttpStatusCode.OK)
@@ -84,8 +83,8 @@ namespace DrinksInformation.JJHH17
             {
                 string rawResponse = response.Result.Content;
                 var serialize = JsonConvert.DeserializeObject<Drinks>(rawResponse);
-                List<Drink> returnedList = serialize.DrinksList;
-                TableVisualisationEngine.ShowTable(returnedList, "Drinks Menu");
+                drinks = serialize.DrinksList;
+                TableVisualisationEngine.ShowTable(drinks, "Drinks Menu");
                 return drinks;
             }
 
