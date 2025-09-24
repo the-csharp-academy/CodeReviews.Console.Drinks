@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
-namespace DrinkInfoPractice.Models
+namespace DrinkInfoPractice.Models;
+
+internal class ApiResponse<T>
 {
-    internal class ApiResponse<T>
-    {
-        [JsonPropertyName("drinks")]
-        public List<T> Drinks { get; set; }
-    }
+    [JsonPropertyName("drinks")]
+    public List<T> Drinks { get; set; }
 }

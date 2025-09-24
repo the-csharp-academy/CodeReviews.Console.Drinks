@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
-namespace DrinkInfoPractice.Models
+namespace DrinkInfoPractice.Models;
+
+internal class DrinkCategory
 {
-    internal class DrinkCategory
-    {
-        [JsonPropertyName("strCategory")]
-        public string StrCategory { get; set; }
-    }
+    [JsonPropertyName("strCategory")]
+    public string StrCategory { get; set; }
 }
