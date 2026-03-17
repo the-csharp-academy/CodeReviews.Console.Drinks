@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": ".NET Launch (console)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/Drinks_Info/bin/Debug/net10/Drinks_Info.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/Drinks_Info",
+      "console": "externalTerminal",
+      "stopAtEntry": false
+    }
+  ]
+}
