@@ -9,7 +9,7 @@ namespace DrinksInfo.Menu;
 internal class DrinkViewMenu
 {
     private readonly DrinkViewRepository drinkViewRepository;
-    private readonly CocktailService cocktailService;
+    private readonly CocktailService cocktailService = new();
 
     public DrinkViewMenu(DataBase dataBase)
     {
