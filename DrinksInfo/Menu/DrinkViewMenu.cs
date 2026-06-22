@@ -64,16 +64,11 @@ internal class DrinkViewMenu
     {
         Showdrinks();
 
-        if (AnsiConsole.Confirm("You want to add new drink"))
-        {
-            await cocktailService.GetAllCategories();
-        }
-
         AnsiConsole.MarkupLine("Please write the id of the drink to add a new view");
 
         string idDrink = Console.ReadLine();
 
-        while (ValidateInput.ValidateId(idDrink))
+        while (!ValidateInput.ValidateId(idDrink))
         {
             AnsiConsole.MarkupLine("[red]Invalid id[/]");
             idDrink = Console.ReadLine();
@@ -81,6 +76,9 @@ internal class DrinkViewMenu
 
         drinkViewRepository.AddView(Int32.Parse(idDrink), "");
 
-        
+        if (AnsiConsole.Confirm("You want to add new drink"))
+        {
+            await cocktailService.GetAllCategories();
+        }      
     }
 }
