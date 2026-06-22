@@ -9,11 +9,12 @@ namespace DrinksInfo.Menu;
 internal class DrinkViewMenu
 {
     private readonly DrinkViewRepository drinkViewRepository;
-    private readonly CocktailService cocktailService = new();
+    private readonly CocktailMenu cocktailMenu;
 
     public DrinkViewMenu(DataBase dataBase)
     {
         drinkViewRepository = new DrinkViewRepository(dataBase);
+        cocktailMenu = new CocktailMenu(dataBase);
     }
 
     public async Task Menu()
@@ -78,7 +79,7 @@ internal class DrinkViewMenu
 
         if (AnsiConsole.Confirm("You want to add new drink"))
         {
-            await cocktailService.GetAllCategories();
+            await cocktailMenu.GetCategories();
         }      
     }
 }
