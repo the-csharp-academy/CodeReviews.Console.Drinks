@@ -18,7 +18,7 @@ internal enum FavoriteMenuOptions
 internal enum CocktailMenuOptions 
 {
     GoCategories,
-    GoDrink,
+    GoDrinks,
     Exit
 }
 

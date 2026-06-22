@@ -2,7 +2,6 @@
 using DrinksInfo.Enums;
 using DrinksInfo.Model;
 using DrinksInfo.Repository;
-using DrinksInfo.Service;
 using Spectre.Console;
 
 namespace DrinksInfo.Menu;

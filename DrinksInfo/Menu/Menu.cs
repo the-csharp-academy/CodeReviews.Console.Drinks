@@ -1,7 +1,6 @@
 ﻿using DrinksInfo.DB;
 using DrinksInfo.Enums;
 using Spectre.Console;
-using System.Threading.Tasks;
 
 namespace DrinksInfo.Menu;
 internal class Menu

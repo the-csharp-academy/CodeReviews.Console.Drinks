@@ -103,7 +103,7 @@ internal class CocktailMenu
             case CocktailMenuOptions.GoCategories:
                 await GetCategories();
                 break;
-            case CocktailMenuOptions.GoDrink:
+            case CocktailMenuOptions.GoDrinks:
                 Console.Clear();
                 await GetDrinks(category);
                 break;

@@ -1,5 +1,4 @@
-﻿using DrinksInfo.Model;
-using Spectre.Console;
+﻿using Spectre.Console;
 using System.Reflection;
 
 namespace DrinksInfo.Menu;
