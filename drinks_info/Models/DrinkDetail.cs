@@ -10,6 +10,7 @@ namespace drinks_info.Models
     }
     public class DrinkDetail
     {
+        public string idDrink { get; set; }
         public string strDrink { get; set; }
         public object strDrinkAlternate { get; set; }
         public object strTags { get; set; }

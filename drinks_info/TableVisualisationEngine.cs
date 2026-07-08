@@ -1,7 +1,9 @@
-﻿using System;
+using System;
 using Spectre.Console;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.IO;
+using System.Net.Http;
 
 namespace drinks_info
 {
@@ -53,6 +55,33 @@ namespace drinks_info
             }
 
             AnsiConsole.Write(table);
+        }
+
+        public static void ShowImage(MemoryStream ms)
+        {
+            var image = new CanvasImage(ms).MaxWidth(80);
+
+            AnsiConsole.Write(image);
+        }
+
+        public static void ShowImage(string imageUrl)
+        {
+            if (string.IsNullOrWhiteSpace(imageUrl))
+            {
+                return;
+            }
+
+            try
+            {
+                using HttpClient client = new HttpClient();
+                byte[] imageBytes = client.GetByteArrayAsync(imageUrl).GetAwaiter().GetResult();
+                using MemoryStream ms = new MemoryStream(imageBytes);
+                ShowImage(ms);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Could not load image: {ex.Message}");
+            }
         }
     }
 }

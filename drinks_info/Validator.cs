@@ -31,5 +31,18 @@ namespace drinks_info
 
             return true;
         }
+
+        internal static bool IsChoiceValid(string? stringInput)
+        {
+            if (String.IsNullOrEmpty(stringInput))
+                return false;
+
+            int choice;
+            if(!int.TryParse(stringInput, out choice))
+            {
+                return false;
+            }
+            return 0 <= choice && choice <= 3;
+        }
     }
 }

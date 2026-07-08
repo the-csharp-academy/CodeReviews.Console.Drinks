@@ -7,7 +7,7 @@ namespace drinks_info
         static void Main(string[] args)
         {
             UserInput userInput = new();
-            userInput.GetCategoriesInput();
+            userInput.GetMenuInput();
         }
     }
 }

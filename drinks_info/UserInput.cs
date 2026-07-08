@@ -1,4 +1,4 @@
-﻿using drinks_info.Service;
+using drinks_info.Service;
 using System;
 
 namespace drinks_info
@@ -6,6 +6,49 @@ namespace drinks_info
     public class UserInput
     {
         DrinksService drinksService = new();
+        FavouriteService favouriteService = new();
+        DrinkViewService drinkViewService = new();
+
+        internal void GetMenuInput()
+        {
+            Console.Clear();
+            Console.WriteLine("\n\nMENU\n\n");
+            Console.WriteLine("\t0 | Exit.");
+            Console.WriteLine("\t1 | Get category list.");
+            Console.WriteLine("\t2 | Get favorite drink list.");
+            Console.WriteLine("\t3 | Get drink views count.");
+            Console.Write("\n\nEnter a number to choose an action:\t");
+            string? inp = Console.ReadLine();
+            while(!Validator.IsChoiceValid(inp))
+            {
+                Console.Write("\nPlease enter a valid number!\nTry again:\t");
+                inp = Console.ReadLine();
+            }
+            int choice = int.Parse(inp);
+
+            switch (choice)
+            {
+                case 0:
+                    break;
+                case 1:
+                    GetCategoriesInput();
+                    break;
+                case 2:
+                    favouriteService.GetAll();
+                    Console.WriteLine("\nPress any key to go back to the menu.");
+                    Console.ReadKey();
+                    GetMenuInput();
+                    break;
+                case 3:
+                    drinkViewService.GetAll();
+                    Console.WriteLine("\nPress any key to go back to the menu.");
+                    Console.ReadKey();
+                    GetMenuInput();
+                    break;
+                default:
+                    break;
+            }
+        }
 
         internal void GetCategoriesInput()
         {
@@ -51,12 +94,23 @@ namespace drinks_info
                 GetDrinksInput(category);
             }
 
-            drinksService.GetDrink(drink);
+            var drinkDetail = drinksService.GetDrink(drink);
+            drinkViewService.IncreaseViewCount(drinkDetail.idDrink, drinkDetail.strDrink);
 
-            Console.WriteLine("\nPress any key to go back to categories menu.");
-            Console.ReadKey();
-            if (!Console.KeyAvailable)
-                GetCategoriesInput();
+            Console.WriteLine("\nDo you want to add this drink to favourite list? (Y/N)");
+            Console.WriteLine("Press 'Y' to add this drink to favourite.");
+            Console.WriteLine("Press any other key to go back to menu.");
+            Console.Write("Your choice:\t");
+   
+            if(Console.ReadKey().Key == ConsoleKey.Y)
+            {
+                favouriteService.Add(drinkDetail.idDrink);
+                Console.WriteLine("\nAdd success!");
+                Console.WriteLine("Press any key to go back to menu.");
+                Console.ReadKey();
+            }
+            
+            GetMenuInput();
         }
 
     }
