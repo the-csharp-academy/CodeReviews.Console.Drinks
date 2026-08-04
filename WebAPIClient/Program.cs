@@ -4,4 +4,4 @@ using Spectre.Console;
 UserInput userInput = new();
 await userInput.GetCategoriesInput();
 
-var table = new Table();
+

@@ -47,26 +47,26 @@ namespace WebAPIClient.Services
 
                 DrinkDetail drinkDetail = returnedList[0];
 
-                List<object> prepList = new();
+                List<DrinkProperty> prepList = new();
                 string formattedName = "";
 
-                foreach(PropertyInfo prop in drinkDetail.GetType().GetProperties())
+                foreach (PropertyInfo prop in drinkDetail.GetType().GetProperties())
                 {
-                    if(prop.Name.Contains("str"))
+                    if (prop.Name.Contains("str"))
                     {
                         formattedName = prop.Name.Substring(3);
                     }
 
-                    if(!string.IsNullOrEmpty(prop.GetValue(drinkDetail)?.ToString()))
+                    if (!string.IsNullOrEmpty(prop.GetValue(drinkDetail)?.ToString()))
                     {
-                        prepList.Add(new
+                        prepList.Add(new DrinkProperty
                         {
                             Key = formattedName,
                             Value = prop.GetValue(drinkDetail)
                         });
                     }
-
                 }
+                TableVisualisation.ShowTable(prepList, drinkDetail.strDrink);
             }
         }
 

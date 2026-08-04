@@ -1,4 +1,6 @@
-﻿using Spectre.Console;
+﻿using ConsoleTableExt;
+using Spectre.Console;
+using System.Reflection;
 
 namespace WebAPIClient.UserInterface
 {
@@ -10,16 +12,28 @@ namespace WebAPIClient.UserInterface
             if (tableName == null)
                 tableName = "";
 
-            //Console.WriteLine("\n\n");
-
-            //ConsoleTableBuilder
-            //    .From(tableData)
-            //    .WithColumn(tableName)
-            //    .ExportAndWriteLine();
-            //Console.WriteLine("\n\n");
-
             var table = new Table();
-            AnsiConsole.
+            
+
+            if (!string.IsNullOrEmpty(tableName))
+            {
+                table.Title(tableName);
+            }
+
+            var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            foreach (var property in properties)
+            {
+                table.AddColumn(property.Name);
+            }
+
+            foreach (var item in tableData)
+            {
+                var values = properties.Select(p => p.GetValue(item)?.ToString() ?? string.Empty).ToArray();
+                table.AddRow(values);
+            }
+
+            AnsiConsole.Write(table);
         }
     }
 }
