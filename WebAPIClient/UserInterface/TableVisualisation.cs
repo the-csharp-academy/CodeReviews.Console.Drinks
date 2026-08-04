@@ -1,11 +1,8 @@
-﻿using ConsoleTableExt;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Spectre.Console;
 
 namespace WebAPIClient.UserInterface
 {
-    internal class TableVisualisation
+    public class TableVisualisation
     {
         public static void ShowTable<T>(List<T> tableData, string? tableName) where T : class
         {
@@ -13,13 +10,16 @@ namespace WebAPIClient.UserInterface
             if (tableName == null)
                 tableName = "";
 
-            Console.WriteLine("\n\n");
+            //Console.WriteLine("\n\n");
 
-            ConsoleTableBuilder
-                .From(tableData)
-                .WithColumn(tableName)
-                .ExportAndWriteLine();
-            Console.WriteLine("\n\n");
+            //ConsoleTableBuilder
+            //    .From(tableData)
+            //    .WithColumn(tableName)
+            //    .ExportAndWriteLine();
+            //Console.WriteLine("\n\n");
+
+            var table = new Table();
+            AnsiConsole.
         }
     }
 }

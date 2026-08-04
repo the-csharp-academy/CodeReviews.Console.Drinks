@@ -11,6 +11,7 @@ namespace WebAPIClient.UserInterface
         {
             await drinksService.GetCategories();
 
+            
             Console.WriteLine("Choose category:");
 
             string category = Console.ReadLine();
