@@ -1,10 +1,11 @@
-﻿using Spectre.Console;
+﻿using SixPix;
+using Spectre.Console;
 
 namespace WebAPIClient.UserInterface
 {
     public class ImageVisualisation
     {
-        public static async Task<CanvasImage> GetImage(string imageUrl)
+        public static async Task GetImage(string imageUrl)
         {
             using var client = new HttpClient();
             client.Timeout = TimeSpan.FromSeconds(5);
@@ -12,11 +13,12 @@ namespace WebAPIClient.UserInterface
                 imageUrl = "https://" + imageUrl.TrimStart('/');
             var bytes = await client.GetByteArrayAsync(imageUrl);
 
-            using var stream = new MemoryStream(bytes);
-            var image = new CanvasImage(stream)
-                .BicubicResampler()
-                .MaxWidth(20);
-            return image;
+            using var imageStream = new MemoryStream(bytes);
+
+            imageStream.Position = 0;
+            ReadOnlySpan<char> sixelString = Sixel.Encode(imageStream);
+
+            Console.Out.WriteLine(sixelString);
         }
     }
 }

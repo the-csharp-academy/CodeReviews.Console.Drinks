@@ -1,4 +1,5 @@
 ﻿using Spectre.Console;
+using Spectre.Console.Rendering;
 using System.Reflection;
 
 namespace WebAPIClient.UserInterface
@@ -12,6 +13,7 @@ namespace WebAPIClient.UserInterface
                 tableName = "";
 
             var table = new Table();
+            IRenderable? imageRender = null;
             string imageLink="";
 
             if (!string.IsNullOrEmpty(tableName))
@@ -25,6 +27,7 @@ namespace WebAPIClient.UserInterface
             {
                 table.AddColumn(property.Name);
             }
+
 
             foreach (var item in tableData)
             {
@@ -40,8 +43,7 @@ namespace WebAPIClient.UserInterface
             }
             if (!string.IsNullOrEmpty(imageLink))
             {
-                var image = await ImageVisualisation.GetImage(imageLink);
-                AnsiConsole.Write(image);
+                await ImageVisualisation.GetImage(imageLink);
             }
             AnsiConsole.Write(table);
         }
