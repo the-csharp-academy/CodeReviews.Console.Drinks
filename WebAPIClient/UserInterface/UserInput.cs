@@ -1,12 +1,14 @@
-﻿using WebAPIClient.Services;
+﻿using Microsoft.Extensions.DependencyInjection;
+using WebAPIClient.Services;
 using WebAPIClient.Validation;
 
 namespace WebAPIClient.UserInterface
 {
     internal class UserInput
     {
-        DrinksService drinksService = new();
-
+        private static HttpClient _httpClient = new HttpClient();
+        
+        private readonly DrinksService drinksService = new(_httpClient);
         internal async Task GetCategoriesInput()
         {
             await drinksService.GetCategories();

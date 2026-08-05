@@ -13,7 +13,6 @@ namespace WebAPIClient.UserInterface
                 tableName = "";
 
             var table = new Table();
-            IRenderable? imageRender = null;
             string imageLink="";
 
             if (!string.IsNullOrEmpty(tableName))

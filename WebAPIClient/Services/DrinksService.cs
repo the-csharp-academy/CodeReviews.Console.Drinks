@@ -12,15 +12,24 @@ namespace WebAPIClient.Services
 {
     internal class DrinksService
     {
+        private HttpClient _httpClient;
+        public DrinksService(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+            _httpClient.BaseAddress = new Uri("http://www.thecocktaildb.com/api/json/v1/1/");
+        }
         public async Task<List<Category>> GetCategories()
         {
-            var client = new RestClient("http://www.thecocktaildb.com/api/json/v1/1/");
-            var request = new RestRequest("list.php?c=list");
-            var responce = await client.ExecuteAsync(request);
+            //var client = new RestClient("http://www.thecocktaildb.com/api/json/v1/1/");
+            //var request = new RestRequest("list.php?c=list");
+            //var responce = await client.ExecuteAsync(request);
+            using HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "list.php?c=list");
+            var responce = await _httpClient.SendAsync(request);
+
             var returnedList = new List<Category>();
             if (responce.StatusCode==System.Net.HttpStatusCode.OK)
             {
-                string rawResponse = responce.Content;
+                string rawResponse = await responce.Content.ReadAsStringAsync();
                 var serialize = JsonConvert.DeserializeObject<Categories>(rawResponse);
 
                 returnedList = serialize.CategoriesList;
@@ -32,13 +41,15 @@ namespace WebAPIClient.Services
 
         internal async Task GetDrink(string? drink)
         {
-            var client = new RestClient("http://www.thecocktaildb.com/api/json/v1/1/");
-            var request = new RestRequest($"lookup.php?i={drink}");
-            var responce = await client.ExecuteAsync(request);
+            //var client = new RestClient("http://www.thecocktaildb.com/api/json/v1/1/");
+            //var request = new RestRequest($"lookup.php?i={drink}");
+            //var responce = await client.ExecuteAsync(request);
+            using HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"lookup.php?i={drink}");
+            var responce = await _httpClient.SendAsync(request);
 
             if (responce.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                string rawResponse = responce.Content;
+                string rawResponse = await responce.Content.ReadAsStringAsync();
                 var serialize = JsonConvert.DeserializeObject<DrinkDetailObject>(rawResponse);
 
                 List<DrinkDetail> returnedList = serialize.DrinkDetailList;
@@ -72,13 +83,18 @@ namespace WebAPIClient.Services
 
         internal async Task<List<Drink>> GetDrinksByCategory(string category)
         {
-            var client = new RestClient("http://www.thecocktaildb.com/api/json/v1/1/");
-            var request = new RestRequest($"filter.php?c={HttpUtility.UrlEncode(category)}");
-            var responce = await client.ExecuteAsync(request);
+            //var client = new RestClient("http://www.thecocktaildb.com/api/json/v1/1/");
+            //var request = new RestRequest($"filter.php?c={HttpUtility.UrlEncode(category)}");
+            //var responce = await client.ExecuteAsync(request);
+
+            using HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"filter.php?c={HttpUtility.UrlEncode(category)}");
+            var responce = await _httpClient.SendAsync(request);
+
+
             var returnedList = new List<Drink>();
             if (responce.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                string rawResponse = responce.Content;
+                string rawResponse = await responce.Content.ReadAsStringAsync();
                 var serialize = JsonConvert.DeserializeObject<Drinks>(rawResponse);
 
                 returnedList = serialize.DrinksList;
