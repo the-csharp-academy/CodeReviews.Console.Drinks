@@ -2,7 +2,7 @@
 {
     public class DrinkProperty
     {
-        public string Key { get; set; } = "";
+        public string Section { get; set; } = "";
         public object? Description { get; set; }
     }
 }

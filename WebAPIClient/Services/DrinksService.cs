@@ -12,19 +12,18 @@ namespace WebAPIClient.Services
 {
     internal class DrinksService
     {
-        private HttpClient _httpClient;
+        private readonly HttpClient _httpClient;
+
         public DrinksService(HttpClient httpClient)
         {
             _httpClient = httpClient;
             _httpClient.BaseAddress = new Uri("http://www.thecocktaildb.com/api/json/v1/1/");
         }
+
         public async Task<List<Category>> GetCategories()
         {
-            //var client = new RestClient("http://www.thecocktaildb.com/api/json/v1/1/");
-            //var request = new RestRequest("list.php?c=list");
-            //var responce = await client.ExecuteAsync(request);
             using HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "list.php?c=list");
-            var responce = await _httpClient.SendAsync(request);
+            using var responce = await _httpClient.SendAsync(request);
 
             var returnedList = new List<Category>();
             if (responce.StatusCode==System.Net.HttpStatusCode.OK)
@@ -41,11 +40,8 @@ namespace WebAPIClient.Services
 
         internal async Task GetDrink(string? drink)
         {
-            //var client = new RestClient("http://www.thecocktaildb.com/api/json/v1/1/");
-            //var request = new RestRequest($"lookup.php?i={drink}");
-            //var responce = await client.ExecuteAsync(request);
             using HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"lookup.php?i={drink}");
-            var responce = await _httpClient.SendAsync(request);
+            using var responce = await _httpClient.SendAsync(request);
 
             if (responce.StatusCode == System.Net.HttpStatusCode.OK)
             {
@@ -66,13 +62,11 @@ namespace WebAPIClient.Services
                         formattedName = prop.Name.Substring(3);
                     }
 
-                    
-
                     if (!string.IsNullOrEmpty(prop.GetValue(drinkDetail)?.ToString()))
                     {
                         prepList.Add(new DrinkProperty
                         {
-                            Key = formattedName,
+                            Section = formattedName,
                             Description = prop.GetValue(drinkDetail)
                         });
                     }
@@ -83,13 +77,8 @@ namespace WebAPIClient.Services
 
         internal async Task<List<Drink>> GetDrinksByCategory(string category)
         {
-            //var client = new RestClient("http://www.thecocktaildb.com/api/json/v1/1/");
-            //var request = new RestRequest($"filter.php?c={HttpUtility.UrlEncode(category)}");
-            //var responce = await client.ExecuteAsync(request);
-
             using HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"filter.php?c={HttpUtility.UrlEncode(category)}");
-            var responce = await _httpClient.SendAsync(request);
-
+            using var responce = await _httpClient.SendAsync(request);
 
             var returnedList = new List<Drink>();
             if (responce.StatusCode == System.Net.HttpStatusCode.OK)
@@ -103,7 +92,5 @@ namespace WebAPIClient.Services
             }
             return returnedList;
         }
-
-
     }
 }

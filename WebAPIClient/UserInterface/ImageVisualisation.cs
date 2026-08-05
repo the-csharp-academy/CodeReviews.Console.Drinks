@@ -7,6 +7,7 @@ namespace WebAPIClient.UserInterface
     {
         public static async Task GetImage(string imageUrl)
         {
+            AnsiConsole.Clear();
             using var client = new HttpClient();
             client.Timeout = TimeSpan.FromSeconds(5);
             if (!Uri.IsWellFormedUriString(imageUrl, UriKind.Absolute))
