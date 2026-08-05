@@ -25,9 +25,7 @@ namespace WebAPIClient.Services
 
                 returnedList = serialize.CategoriesList;
 
-                TableVisualisation.ShowTable(returnedList, "Categories Menu");
-
-                
+                await TableVisualisation.ShowTable(returnedList, "Categories Menu");
             }
             return returnedList;
         }
@@ -57,16 +55,18 @@ namespace WebAPIClient.Services
                         formattedName = prop.Name.Substring(3);
                     }
 
+                    
+
                     if (!string.IsNullOrEmpty(prop.GetValue(drinkDetail)?.ToString()))
                     {
                         prepList.Add(new DrinkProperty
                         {
                             Key = formattedName,
-                            Value = prop.GetValue(drinkDetail)
+                            Description = prop.GetValue(drinkDetail)
                         });
                     }
                 }
-                TableVisualisation.ShowTable(prepList, drinkDetail.strDrink);
+                await TableVisualisation.ShowTable(prepList, drinkDetail.strDrink);
             }
         }
 
@@ -83,7 +83,7 @@ namespace WebAPIClient.Services
 
                 returnedList = serialize.DrinksList;
 
-                TableVisualisation.ShowTable(returnedList, "Drinks List");
+                await TableVisualisation.ShowTable(returnedList, "Drinks List");
             }
             return returnedList;
         }

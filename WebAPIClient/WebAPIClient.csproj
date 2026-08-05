@@ -9,8 +9,10 @@
 
   <ItemGroup>
     <PackageReference Include="ConsoleTableExt" Version="3.3.0" />
+    <PackageReference Include="mostlylucid.consoleimage.spectre" Version="5.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="RestSharp" Version="114.0.0" />
+    <PackageReference Include="SharpCompress" Version="0.50.3" />
     <PackageReference Include="Spectre.Console" Version="0.57.2" />
     <PackageReference Include="Spectre.Console.Ansi" Version="0.57.2" />
     <PackageReference Include="Spectre.Console.ImageSharp" Version="0.57.2" />

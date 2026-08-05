@@ -1,19 +1,18 @@
-﻿using ConsoleTableExt;
-using Spectre.Console;
+﻿using Spectre.Console;
 using System.Reflection;
 
 namespace WebAPIClient.UserInterface
 {
     public class TableVisualisation
     {
-        public static void ShowTable<T>(List<T> tableData, string? tableName) where T : class
+        public static async Task ShowTable<T>(List<T> tableData, string? tableName) where T : class
         {
             Console.Clear();
             if (tableName == null)
                 tableName = "";
 
             var table = new Table();
-            
+            string imageLink="";
 
             if (!string.IsNullOrEmpty(tableName))
             {
@@ -29,10 +28,21 @@ namespace WebAPIClient.UserInterface
 
             foreach (var item in tableData)
             {
+                
                 var values = properties.Select(p => p.GetValue(item)?.ToString() ?? string.Empty).ToArray();
+                foreach (var value in values)
+                {
+                    if (value.Contains("jpg"))
+                        imageLink = value;
+                }
+
                 table.AddRow(values);
             }
-
+            if (!string.IsNullOrEmpty(imageLink))
+            {
+                var image = await ImageVisualisation.GetImage(imageLink);
+                AnsiConsole.Write(image);
+            }
             AnsiConsole.Write(table);
         }
     }
