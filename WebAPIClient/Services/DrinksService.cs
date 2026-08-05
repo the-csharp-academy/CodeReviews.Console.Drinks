@@ -26,7 +26,7 @@ namespace WebAPIClient.Services
             using var responce = await _httpClient.SendAsync(request);
 
             var returnedList = new List<Category>();
-            if (responce.StatusCode==System.Net.HttpStatusCode.OK)
+            if (responce.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 string rawResponse = await responce.Content.ReadAsStringAsync();
                 var serialize = JsonConvert.DeserializeObject<Categories>(rawResponse);
@@ -34,8 +34,10 @@ namespace WebAPIClient.Services
                 returnedList = serialize.CategoriesList;
 
                 await TableVisualisation.ShowTable(returnedList, "Categories Menu");
+
+                return returnedList;
             }
-            return returnedList;
+            else throw new Exception("Destination address is unavailable");
         }
 
         internal async Task GetDrink(string? drink)
@@ -73,6 +75,7 @@ namespace WebAPIClient.Services
                 }
                 await TableVisualisation.ShowTable(prepList, drinkDetail.strDrink);
             }
+            else throw new Exception("Destination address is unavailable");
         }
 
         internal async Task<List<Drink>> GetDrinksByCategory(string category)
@@ -89,8 +92,10 @@ namespace WebAPIClient.Services
                 returnedList = serialize.DrinksList;
 
                 await TableVisualisation.ShowTable(returnedList, "Drinks List");
+
+                return returnedList;
             }
-            return returnedList;
+            else throw new Exception("Destination address is unavailable");
         }
     }
 }

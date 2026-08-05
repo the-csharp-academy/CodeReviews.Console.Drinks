@@ -12,60 +12,72 @@ namespace WebAPIClient.UserInterface
         private readonly DrinksService drinksService = new(_httpClient);
         internal async Task GetCategoriesInput()
         {
-            var categoryList = await drinksService.GetCategories();
+            try
+            {
+                var categoryList = await drinksService.GetCategories();
 
-            string category = await AnsiConsole.PromptAsync(new SelectionPrompt<string>()
-                                                                .Title("Choose [green]category:[/]")
-                                                                .AddChoices(categoryList.Select(c => c.strCategory).Append("Exit")));
-            if (category == "Exit")
-            {
-                return;
-            }
-            else
-            {
-                while (!Validator.IsStringValid(category))
+                string category = await AnsiConsole.PromptAsync(new SelectionPrompt<string>()
+                                                                    .Title("Choose [green]category:[/]")
+                                                                    .AddChoices(categoryList.Select(c => c.strCategory).Append("Exit")));
+                if (category == "Exit")
                 {
-                    Console.WriteLine("\nInvalid category");
-                    //category = Console.ReadLine();
+                    return;
                 }
+                else
+                {
+                    while (!Validator.IsStringValid(category))
+                    {
+                        Console.WriteLine("\nInvalid category");
+                    }
 
-                await GetDrinksInput(category);
+                    await GetDrinksInput(category);
+                }
+            }
+            catch(Exception ex)
+            {
+                AnsiConsole.MarkupLine($"[red]{ex.Message}[/]");
             }
         }
 
         private async Task GetDrinksInput(string category)
         {
-            var drinkList = await drinksService.GetDrinksByCategory(category);
-
-            string drink = await AnsiConsole.PromptAsync(new SelectionPrompt<string>()
-                                                                .Title("Choose [green]drink:[/]")
-                                                                .AddChoices(drinkList.Select(c => c.strDrink).Append("Back")));
-
-            if (drink == "Back")
+            try
             {
-                await GetCategoriesInput();
+                var drinkList = await drinksService.GetDrinksByCategory(category);
+
+                string drink = await AnsiConsole.PromptAsync(new SelectionPrompt<string>()
+                                                                    .Title("Choose [green]drink:[/]")
+                                                                    .AddChoices(drinkList.Select(c => c.strDrink).Append("Back")));
+
+                if (drink == "Back")
+                {
+                    await GetCategoriesInput();
+                }
+                else
+                {
+
+                    var drinkId = drinkList.Where(d => d.strDrink == drink).Select(d => d.idDrink).FirstOrDefault().ToString();
+
+                    while (!Validator.IsIdValid(drinkId))
+                    {
+                        Console.WriteLine("\nInvalid drink");
+                    }
+
+                    await drinksService.GetDrink(drinkId);
+
+                    string choise = await AnsiConsole.PromptAsync(new SelectionPrompt<string>()
+                                                                    .Title("What to do [green]next:[/]")
+                                                                    .AddChoices("Back to category section", "Exit"));
+                    if (choise == "Exit")
+                    {
+                        return;
+                    }
+                    else await GetCategoriesInput();
+                }
             }
-            else
+            catch (Exception ex)
             {
-
-                var drinkId = drinkList.Where(d => d.strDrink == drink).Select(d => d.idDrink).FirstOrDefault().ToString();
-
-                while (!Validator.IsIdValid(drinkId))
-                {
-                    Console.WriteLine("\nInvalid drink");
-                    //drink = Console.ReadLine();
-                }
-
-                await drinksService.GetDrink(drinkId);
-
-                string choise = await AnsiConsole.PromptAsync(new SelectionPrompt<string>()
-                                                                .Title("What to do [green]next:[/]")
-                                                                .AddChoices("Back to category section", "Exit"));
-                if(choise == "Exit")
-                {
-                    return;
-                }
-                else await GetCategoriesInput();
+                AnsiConsole.MarkupLine($"[red]{ex.Message}[/]");
             }
         }
     }
