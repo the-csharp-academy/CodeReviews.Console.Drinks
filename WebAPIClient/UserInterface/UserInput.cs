@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Spectre.Console;
+﻿using Spectre.Console;
 using WebAPIClient.Services;
 using WebAPIClient.Validation;
 
@@ -18,16 +17,17 @@ namespace WebAPIClient.UserInterface
 
                 string category = await AnsiConsole.PromptAsync(new SelectionPrompt<string>()
                                                                     .Title("Choose [green]category:[/]")
-                                                                    .AddChoices(categoryList.Select(c => c.strCategory).Append("Exit")));
+                                                                    .AddChoices(categoryList.Select(c => c.strCategory)
+                                                                    .Append("Exit")));
                 if (category == "Exit")
                 {
                     return;
                 }
                 else
                 {
-                    while (!Validator.IsStringValid(category))
+                    if (!Validator.IsStringValid(category))
                     {
-                        Console.WriteLine("\nInvalid category");
+                        throw new Exception("\nInvalid category");
                     }
 
                     await GetDrinksInput(category);
@@ -47,7 +47,8 @@ namespace WebAPIClient.UserInterface
 
                 string drink = await AnsiConsole.PromptAsync(new SelectionPrompt<string>()
                                                                     .Title("Choose [green]drink:[/]")
-                                                                    .AddChoices(drinkList.Select(c => c.strDrink).Append("Back")));
+                                                                    .AddChoices(drinkList.Select(c => c.strDrink)
+                                                                    .Append("Back")));
 
                 if (drink == "Back")
                 {
@@ -55,12 +56,14 @@ namespace WebAPIClient.UserInterface
                 }
                 else
                 {
-
-                    var drinkId = drinkList.Where(d => d.strDrink == drink).Select(d => d.idDrink).FirstOrDefault().ToString();
+                    var drinkId = drinkList.Where(d => d.strDrink == drink)
+                                           .Select(d => d.idDrink)
+                                           .FirstOrDefault()
+                                           ?.ToString();
 
                     while (!Validator.IsIdValid(drinkId))
                     {
-                        Console.WriteLine("\nInvalid drink");
+                        throw new Exception("\nInvalid drink");
                     }
 
                     await drinksService.GetDrink(drinkId);

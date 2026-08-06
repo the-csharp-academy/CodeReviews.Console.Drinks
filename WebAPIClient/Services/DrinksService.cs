@@ -1,8 +1,5 @@
 ﻿using drinks_info.Models;
 using Newtonsoft.Json;
-using RestSharp;
-using System;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Web;
 using WebAPIClient.Models;
@@ -37,7 +34,7 @@ namespace WebAPIClient.Services
 
                 return returnedList;
             }
-            else throw new Exception("Destination address is unavailable");
+            else throw new Exception($"An error occurred. {responce.StatusCode}");
         }
 
         internal async Task GetDrink(string? drink)
@@ -75,7 +72,7 @@ namespace WebAPIClient.Services
                 }
                 await TableVisualisation.ShowTable(prepList, drinkDetail.strDrink);
             }
-            else throw new Exception("Destination address is unavailable");
+            else throw new Exception($"An error occurred. {responce.StatusCode}");
         }
 
         internal async Task<List<Drink>> GetDrinksByCategory(string category)
@@ -95,7 +92,7 @@ namespace WebAPIClient.Services
 
                 return returnedList;
             }
-            else throw new Exception("Destination address is unavailable");
+            else throw new Exception($"An error occurred. {responce.StatusCode}");
         }
     }
 }
