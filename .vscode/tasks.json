@@ -1,0 +1,52 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "process",
+            "command": "dotnet",
+            "args": [
+                "build",
+                "${workspaceFolder}/Drinks/Drinks.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/Drinks/Drinks.csproj"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "run (external console)",
+            "type": "process",
+            "command": "powershell.exe",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-Command",
+                "Start-Process powershell.exe -ArgumentList @('-NoExit', '-NoProfile', '-Command', 'dotnet run --project \"${workspaceFolder}/Drinks/Drinks.csproj\"') -WorkingDirectory \"${workspaceFolder}/Drinks\""
+            ],
+            "dependsOn": "build",
+            "dependsOrder": "sequence",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "never",
+                "focus": false
+            }
+        }
+    ]
+}

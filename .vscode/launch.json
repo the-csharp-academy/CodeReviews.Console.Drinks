@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Drinks",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "${workspaceFolder}/Drinks/bin/Debug/net10.0/Drinks.dll",
+            "cwd": "${workspaceFolder}/Drinks",
+            "console": "externalTerminal",
+            "preLaunchTask": "build"
+        }
+    ]
+}
