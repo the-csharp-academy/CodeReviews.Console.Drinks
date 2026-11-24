@@ -9,5 +9,5 @@ public record Drink(string? strDrink, string? idDrink);
 public record Drinks
 {
     [property: JsonPropertyName("drinks")]
-    public List<Drink>? DrinksList { get; set; }
+    public List<Drink>? ViewList { get; set; }
 }

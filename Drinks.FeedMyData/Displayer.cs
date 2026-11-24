@@ -4,31 +4,17 @@ namespace Drinks;
 
 internal class Displayer
 {
-    internal static void PrintTable<T>(List<T> tableData, Func<T, string?> getText, string tableName = "")
+    internal static void PrintTable(List<DisplayableDrinkDetails> tableData)
     {
         var table = new Table()
-            .Title(tableName)
-            .AddColumn("Info");
+            .Title("Details")
+            .AddColumn("Name")
+            .AddColumn("Content");
 
-        foreach (var data in tableData)
-            table.AddRow(getText(data) ?? "");
-
-        AnsiConsole.Write(table);
-    }
-
-    internal static void PrintTable<T>(
-        List<T> tableData,
-        Func<T, string?> getKey,
-        Func<T, string?> getValue,
-        string tableName = "")
-    {
-        var table = new Table()
-            .Title(tableName)
-            .AddColumn("Field")
-            .AddColumn("Value");
-
-        foreach (var data in tableData)
-            table.AddRow(getKey(data) ?? "", getValue(data) ?? "");
+        foreach (var entry in tableData)
+            table.AddRow(
+                entry.contentTitle,
+                entry.content);
 
         AnsiConsole.Write(table);
     }

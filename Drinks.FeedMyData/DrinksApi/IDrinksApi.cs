@@ -11,7 +11,12 @@ public interface IDrinksApi
 
     // <summary> Retrieves all drinks, with category filter
     [Get("/filter.php?c={category}")]
-    Task<List<Drink>> GetDrinksPerCategoryAsync(
+    Task<Drinks> GetDrinksPerCategoryAsync(
     string category,
+    CancellationToken cancellationToken = default);
+
+    [Get("/lookup.php?i={idDrink}")]
+    Task<DrinkDetailsContainer> GetDrinkDetails(
+    string idDrink,
     CancellationToken cancellationToken = default);
 }

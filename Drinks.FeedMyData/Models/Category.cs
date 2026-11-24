@@ -8,5 +8,5 @@ public record Category(string? strCategory);
 public record Categories
 {
     [JsonPropertyName("drinks")]
-    public List<Category>? CategoriesList { get; set; }
+    public List<Category>? ViewList { get; set; }
 }

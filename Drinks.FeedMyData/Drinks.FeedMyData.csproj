@@ -8,10 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- <PackageReference Include="Newtonsoft.Json" Version="13.0.4" /> -->
     <PackageReference Include="Refit" Version="17.0.0" />
-    <PackageReference Include="Refit.Reflection" Version="17.0.0" />
-    <!-- <PackageReference Include="RestSharp" Version="114.1.0" /> -->
     <PackageReference Include="Spectre.Console" Version="0.57.2" />
   </ItemGroup>
 
