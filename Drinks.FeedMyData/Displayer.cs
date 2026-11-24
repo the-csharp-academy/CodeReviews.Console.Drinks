@@ -2,9 +2,9 @@ using Spectre.Console;
 
 namespace Drinks;
 
-public class Displayer
+internal class Displayer
 {
-    public static void PrintTable<T>(List<T> tableData, Func<T, string?> getText, string tableName = "")
+    internal static void PrintTable<T>(List<T> tableData, Func<T, string?> getText, string tableName = "")
     {
         var table = new Table()
             .Title(tableName)
@@ -16,7 +16,7 @@ public class Displayer
         AnsiConsole.Write(table);
     }
 
-    public static void PrintTable<T>(
+    internal static void PrintTable<T>(
         List<T> tableData,
         Func<T, string?> getKey,
         Func<T, string?> getValue,

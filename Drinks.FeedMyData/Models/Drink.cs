@@ -4,15 +4,9 @@ using System.Text.Json.Serialization;
 
 namespace Drinks;
 
-public class Drink
-{
-    [property: JsonPropertyName("strDrink")]
-    public string? strDrink { get; set; }
-    [property: JsonPropertyName("idDrink")]
-    public string? idDrink { get; set; }
-}
+public record Drink(string? strDrink, string? idDrink);
 
-public class Drinks
+public record Drinks
 {
     [property: JsonPropertyName("drinks")]
     public List<Drink>? DrinksList { get; set; }

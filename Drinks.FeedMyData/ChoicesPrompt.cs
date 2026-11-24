@@ -2,9 +2,9 @@ using Spectre.Console;
 
 namespace Drinks;
 
-public class ChoicesPrompt
+internal class ChoicesPrompt
 {
-    public static Category SelectOne(List<Category> choices, string title, string color)
+    internal static Category SelectOne(List<Category> choices, string title, string color)
     {
         var selection = AnsiConsole.Prompt(
         new SelectionPrompt<Category>()

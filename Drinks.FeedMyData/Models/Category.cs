@@ -3,13 +3,10 @@ using System.Text.Json.Serialization;
 
 namespace Drinks;
 
-public class Category
-{
-    public string? strCategory { get; set; }
-}
+public record Category(string? strCategory);
 
-public class Categories
+public record Categories
 {
-    [property: JsonPropertyName("drinks")]
+    [JsonPropertyName("drinks")]
     public List<Category>? CategoriesList { get; set; }
 }
