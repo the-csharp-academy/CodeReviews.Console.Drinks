@@ -4,28 +4,32 @@ namespace Drinks;
 
 internal class ChoicesPrompt
 {
-    internal static Category SelectOne(List<Category> choices, string title, string color)
+    internal static Category SelectOne(List<Category> choices, string title)
     {
+        Category empty = new("");
+
         var selection = AnsiConsole.Prompt(
         new SelectionPrompt<Category>()
-        .Title($"Select the {title}")
-        .HighlightStyle(color)
+        .Title(title)
         .UseConverter(entry => entry.strCategory)
-        .PageSize(100)
-        .AddChoices(choices));
+        .PageSize(20)
+        .AddChoices(choices)
+        .AddCancelResult(empty));
 
         return selection;
     }
 
-    internal static Drink SelectOne(List<Drink> choices, string title, string color)
+    internal static Drink SelectOne(List<Drink> choices, string title)
     {
+        Drink empty = new("", "");
+
         var selection = AnsiConsole.Prompt(
         new SelectionPrompt<Drink>()
-        .Title($"Select the {title}")
-        .HighlightStyle(color)
+        .Title(title)
         .UseConverter(entry => entry.strDrink)
-        .PageSize(100)
-        .AddChoices(choices));
+        .PageSize(20)
+        .AddChoices(choices)
+        .AddCancelResult(empty));
 
         return selection;
     }
