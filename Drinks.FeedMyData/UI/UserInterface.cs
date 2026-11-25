@@ -14,9 +14,15 @@ internal class UserInterface
 
     internal async Task CallMenu()
     {
+
         while (true)
         {
-            await MenuFlow();
+            try { await MenuFlow(); }
+            catch (Refit.ApiRequestException ex)
+            {
+                AnsiConsole.MarkupLine("[red]Host is unreachable. Check your internet connection or the domain: http://www.thecocktaildb.com[/]");
+            }
+
             if (AnsiConsole.Confirm("Quit the application?"))
                 break;
         }
@@ -49,7 +55,7 @@ internal class UserInterface
 
             Displayer.PrintTable(PrepareDrinkDetails(drinkDetails));
 
-            AnsiConsole.MarkupLine("[grey] Press any key to go back to the main menu[/]");
+            AnsiConsole.MarkupLine("[grey] Press any key to go back to the main menu.[/]");
             Console.ReadKey();
         }
     }
@@ -75,6 +81,7 @@ internal class UserInterface
             if (property.Name.StartsWith("strInstructions") && property.Name.Length > instruction.Length)
                 continue;
 
+            // trim the first 3 letters of most properties
             if (property.Name.StartsWith("str"))
                 formattedName = property.Name.Substring(3);
             else
